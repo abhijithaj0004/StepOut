@@ -13,9 +13,9 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.only(left: 30, right: 30),
+          padding: const EdgeInsets.only(left: 30, right: 30),
           children: [
-            StepOutImg(
+            const StepOutImg(
               height: 170,
             ),
             kheight20,
@@ -41,11 +41,16 @@ class SignUpScreen extends StatelessWidget {
                 kheight30,
                 KTextField(hint: 'Enter Your Name'),
                 kheight30,
-                KTextField(hint: 'Enter Your Email'),
+                KTextField(
+                    keyBoardType: TextInputType.emailAddress,
+                    hint: 'Enter Your Email'),
                 kheight30,
-                KTextField(hint: 'Enter Password'),
+                KTextField(
+                    sufixIcon: Icon(Icons.remove_red_eye_outlined),
+                    obscureText: true,
+                    hint: 'Enter Password'),
                 kheight30,
-                KTextField(hint: 'Confirm Password'),
+                KTextField(obscureText: true, hint: 'Confirm Password'),
                 kheight30,
                 KButton(
                     onClick: () {
@@ -75,12 +80,17 @@ class SignUpScreen extends StatelessWidget {
                               fontSize: 18,
                               color: Color.fromARGB(255, 129, 129, 129))),
                     ),
-                    Text(
-                      ' Sign In',
-                      style: GoogleFonts.itim(
-                          textStyle: const TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 0, 0, 0))),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        ' Sign In',
+                        style: GoogleFonts.itim(
+                            textStyle: const TextStyle(
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 0, 0, 0))),
+                      ),
                     ),
                   ],
                 ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1058072420794",
+    "project_id": "stepout-6307b",
+    "storage_bucket": "stepout-6307b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058072420794:android:6bb006f96e2f64b5907d83",
+        "android_client_info": {
+          "package_name": "com.example.stepout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP7mHexnxje06j8U0J4zUqHu4nTR676D8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

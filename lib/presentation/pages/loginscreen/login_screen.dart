@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/presentation/constants/constantwidgets/constant_button.dart';
@@ -6,8 +7,9 @@ import 'package:stepout/presentation/constants/constantwidgets/constant_textfiel
 import 'package:stepout/presentation/pages/loginscreen/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+  LoginScreen({super.key});
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -16,7 +18,7 @@ class LoginScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            StepOutImg(
+            const StepOutImg(
               height: 170,
             ),
             kheight20,
@@ -45,10 +47,16 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       KTextField(
+                        controller: emailController,
+                        keyBoardType: TextInputType.emailAddress,
                         hint: 'Enter Email',
                       ),
                       kheight30,
-                      KTextField(hint: 'Enter Password'),
+                      KTextField(
+                          controller: passwordController,
+                          sufixIcon: Icon(Icons.remove_red_eye_outlined),
+                          obscureText: true,
+                          hint: 'Enter Password'),
                       kheight30,
                       KButton(
                           label: Center(
@@ -138,5 +146,11 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim());
   }
 }

@@ -7,12 +7,12 @@ class KButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: onClick,
       child: Container(
         width: double.infinity,
-        height: size.height * 0.07,
+        // height: size.height * 0.07,
+        height: 60,
         decoration: BoxDecoration(
             color: Colors.black, borderRadius: BorderRadius.circular(30)),
         child: label,

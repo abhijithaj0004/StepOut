@@ -6,14 +6,22 @@ class KTextField extends StatelessWidget {
     super.key,
     required this.hint,
     this.controller,
+    this.keyBoardType,
+    this.obscureText = false, this.sufixIcon,
   });
   final String hint;
   final TextEditingController? controller;
+  final TextInputType? keyBoardType;
+  final bool obscureText;
+  final Widget? sufixIcon;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyBoardType,
+      obscureText: obscureText,
       decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(),
+        suffixIcon: sufixIcon,
+        focusedBorder: const OutlineInputBorder(),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
