@@ -12,23 +12,22 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.only(left: 30, right: 30),
-          children: [
-            const StepOutImg(
-              height: 170,
-            ),
-            kheight20,
-            Column(
+        child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const StepOutImg(
+                  height: 170,
+                ),
+                kheight20,
                 Text(
                   'Welcome to STEP OUT',
                   style: GoogleFonts.itim(
                       textStyle: const TextStyle(
-                          fontSize: 32,
-                          color: Color.fromARGB(255, 104, 103, 103),
-                          letterSpacing: 1)),
+                    fontSize: 32,
+                    color: Color.fromARGB(255, 104, 103, 103),
+                  )),
                 ),
                 kheight10,
                 Text(
@@ -95,9 +94,7 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ],
-            )
-          ],
-        ),
+            )),
       ),
     );
   }
