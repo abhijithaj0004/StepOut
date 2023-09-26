@@ -4,15 +4,19 @@ class MainContainer extends StatelessWidget {
   final double? height;
   final double? width;
   final Widget? child;
+  final EdgeInsetsGeometry? margin;
   const MainContainer({
     super.key,
     this.height,
-    this.width, this.child,
+    this.width,
+    this.child,
+    this.margin,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: margin,
       width: width,
       height: height,
       decoration: BoxDecoration(

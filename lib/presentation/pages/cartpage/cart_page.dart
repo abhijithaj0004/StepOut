@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/presentation/constants/constants.dart';
-import 'package:stepout/presentation/constants/constantwidgets/constant_button.dart';
-import 'package:stepout/presentation/constants/constantwidgets/constant_main_container.dart';
+import 'package:stepout/presentation/constants/combonents/constant_button.dart';
+import 'package:stepout/presentation/constants/combonents/constant_main_container.dart';
 import 'package:stepout/presentation/pages/favoritepage/fav_page.dart';
 
 class CartPage extends StatelessWidget {

@@ -12,7 +12,20 @@
           "package_name": "com.example.stepout"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1058072420794-lo8t5j8i03449fp1pqq2f6u17e8k7r8l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stepout",
+            "certificate_hash": "b75e66a3ced6082886d8659c95f393ef5b6db0ef"
+          }
+        },
+        {
+          "client_id": "1058072420794-7b8c3p93eh9if1hlff4lu9v16kk7b8t2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCP7mHexnxje06j8U0J4zUqHu4nTR676D8"
@@ -20,7 +33,55 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058072420794-7b8c3p93eh9if1hlff4lu9v16kk7b8t2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1058072420794-a1an51bbv3omcgclmk6gh3pt731j83ai.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.stepoutadminapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058072420794:android:9dcba66e18099bb9907d83",
+        "android_client_info": {
+          "package_name": "com.example.stepoutadminapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058072420794-7b8c3p93eh9if1hlff4lu9v16kk7b8t2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP7mHexnxje06j8U0J4zUqHu4nTR676D8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058072420794-7b8c3p93eh9if1hlff4lu9v16kk7b8t2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1058072420794-a1an51bbv3omcgclmk6gh3pt731j83ai.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.stepoutadminapp"
+              }
+            }
+          ]
         }
       }
     }

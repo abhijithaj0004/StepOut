@@ -66,6 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1058072420794',
     projectId: 'stepout-6307b',
     storageBucket: 'stepout-6307b.appspot.com',
+    androidClientId: '1058072420794-lo8t5j8i03449fp1pqq2f6u17e8k7r8l.apps.googleusercontent.com',
+    iosClientId: '1058072420794-n32h2j68f4gfl8lf1c8nptpnbh4ocggp.apps.googleusercontent.com',
     iosBundleId: 'com.example.stepout',
   );
 
@@ -75,6 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1058072420794',
     projectId: 'stepout-6307b',
     storageBucket: 'stepout-6307b.appspot.com',
+    androidClientId: '1058072420794-lo8t5j8i03449fp1pqq2f6u17e8k7r8l.apps.googleusercontent.com',
+    iosClientId: '1058072420794-sn89ce9f3oag0692ddj56rm83dcmui2a.apps.googleusercontent.com',
     iosBundleId: 'com.example.stepout.RunnerTests',
   );
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/presentation/constants/constants.dart';
-import 'package:stepout/presentation/constants/constantwidgets/constant_main_container.dart';
-final List imgUrl = [
+import 'package:stepout/presentation/constants/combonents/constant_main_container.dart';
+final List<String> imgUrl = [
     'lib/presentation/images/shoesONE.png',
     'lib/presentation/images/soesTWO.png',
     'lib/presentation/images/shoesTHREE.png'
   ];
 class FavPage extends StatelessWidget {
-  FavPage({super.key});
+ const FavPage({super.key});
   
   @override
   Widget build(BuildContext context) {
