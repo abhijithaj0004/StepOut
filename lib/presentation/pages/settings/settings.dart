@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/presentation/constants/constants.dart';
 import 'package:stepout/presentation/functions/auth_fns.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({super.key});
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

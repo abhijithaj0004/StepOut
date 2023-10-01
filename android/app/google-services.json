@@ -58,6 +58,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1058072420794-6ig662js953he0p1b0jd48dss0fioqij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stepoutadminapp",
+            "certificate_hash": "b75e66a3ced6082886d8659c95f393ef5b6db0ef"
+          }
+        },
+        {
           "client_id": "1058072420794-7b8c3p93eh9if1hlff4lu9v16kk7b8t2.apps.googleusercontent.com",
           "client_type": 3
         }

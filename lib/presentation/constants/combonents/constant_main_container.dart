@@ -4,6 +4,7 @@ class MainContainer extends StatelessWidget {
   final double? height;
   final double? width;
   final Widget? child;
+  final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   const MainContainer({
     super.key,
@@ -11,11 +12,13 @@ class MainContainer extends StatelessWidget {
     this.width,
     this.child,
     this.margin,
+    this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: padding,
       margin: margin,
       width: width,
       height: height,
