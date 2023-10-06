@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stepout/businesslogic/hidepassword/hide_password_cubit.dart';
 import 'package:stepout/presentation/constants/constants.dart';
 import 'package:stepout/presentation/constants/combonents/constant_button.dart';
 import 'package:stepout/presentation/functions/auth_fns.dart';
@@ -87,29 +89,42 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                   kheight30,
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Password is required';
-                      }
-                      return null;
+                  BlocBuilder<HidePasswordCubit, HidePasswordState>(
+                    builder: (context, state) {
+                      return TextFormField(
+                        obscureText: state.ischanged,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password is required';
+                          }
+                          return null;
+                        },
+                        controller: passwordController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                context.read<HidePasswordCubit>().toggle();
+                              },
+                              icon: Icon(state.ischanged
+                                  ? Icons.visibility
+                                  : Icons.visibility_off)),
+                          focusedBorder: const OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          hintText: 'Enter Password',
+                          hintStyle: GoogleFonts.itim(
+                              textStyle: const TextStyle(
+                                  fontSize: 22,
+                                  color: Color.fromARGB(255, 140, 140, 140))),
+                        ),
+                      );
                     },
-                    controller: passwordController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      focusedBorder: const OutlineInputBorder(),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      hintText: 'Enter Password',
-                      hintStyle: GoogleFonts.itim(
-                          textStyle: const TextStyle(
-                              fontSize: 22,
-                              color: Color.fromARGB(255, 140, 140, 140))),
-                    ),
                   ),
                   kheight30,
                   TextFormField(
+                    obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'password is required';

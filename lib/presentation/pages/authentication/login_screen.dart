@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stepout/businesslogic/hidepassword/hide_password_cubit.dart';
 import 'package:stepout/presentation/constants/combonents/constant_button.dart';
 import 'package:stepout/presentation/constants/constants.dart';
 import 'package:stepout/presentation/functions/auth_fns.dart';
@@ -8,12 +10,19 @@ import 'package:stepout/presentation/pages/authentication/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
+
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   final AuthFn authFn = AuthFn();
+
   final formkey = GlobalKey<FormState>();
+
+  // bool isChanged = true;
   @override
   Widget build(BuildContext context) {
+    // final hidePassword = context.read<ObscureText>();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -67,26 +76,37 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 kheight30,
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password Required';
-                    }
-                    return null;
+                BlocBuilder<HidePasswordCubit, HidePasswordState>(
+                  builder: (context, state) {
+                    return TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password Required';
+                        }
+                        return null;
+                      },
+                      controller: passwordController,
+                      obscureText: state.ischanged,
+                      decoration: InputDecoration(
+                        focusedBorder: const OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        hintText: 'Enter Password',
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              context.read<HidePasswordCubit>().toggle();
+                            },
+                            icon: Icon(state.ischanged
+                                ? Icons.visibility
+                                : Icons.visibility_off)),
+                        hintStyle: GoogleFonts.itim(
+                            textStyle: const TextStyle(
+                                fontSize: 22,
+                                color: Color.fromARGB(255, 140, 140, 140))),
+                      ),
+                    );
                   },
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    focusedBorder: const OutlineInputBorder(),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    hintText: 'Enter Password',
-                    hintStyle: GoogleFonts.itim(
-                        textStyle: const TextStyle(
-                            fontSize: 22,
-                            color: Color.fromARGB(255, 140, 140, 140))),
-                  ),
                 ),
                 kheight30,
                 KButton(
