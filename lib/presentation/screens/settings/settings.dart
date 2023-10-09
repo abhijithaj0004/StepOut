@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stepout/presentation/constants/constants.dart';
+import 'package:stepout/presentation/core/constants.dart';
 import 'package:stepout/presentation/functions/auth_fns.dart';
 
 class SettingsPage extends StatelessWidget {

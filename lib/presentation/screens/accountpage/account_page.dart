@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stepout/presentation/constants/constants.dart';
-import 'package:stepout/presentation/pages/settings/settings.dart';
+import 'package:stepout/presentation/core/constants.dart';
+import 'package:stepout/presentation/screens/settings/settings.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});

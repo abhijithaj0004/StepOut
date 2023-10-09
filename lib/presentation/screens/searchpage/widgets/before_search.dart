@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stepout/presentation/constants/combonents/constant_main_container.dart';
+import 'package:stepout/presentation/core/combonents/constant_main_container.dart';
 
 class SearchList extends StatelessWidget {
   const SearchList({
@@ -45,9 +45,13 @@ class SearchList extends StatelessWidget {
               },
             ),
           ),
-          Text(
-            items[index]['name'],
-            style: GoogleFonts.itim(textStyle: TextStyle(fontSize: 20)),
+          SizedBox(
+            width: size * 0.5,
+            child: Text(
+              items[index]['name'],
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.itim(textStyle: TextStyle(fontSize: 20)),
+            ),
           )
         ],
       ),

@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
 
   gotoLogin(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
+   await Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => Auth(),
     ));
   }

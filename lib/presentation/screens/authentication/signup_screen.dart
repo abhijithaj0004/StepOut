@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/businesslogic/hidepassword/hide_password_cubit.dart';
-import 'package:stepout/presentation/constants/constants.dart';
-import 'package:stepout/presentation/constants/combonents/constant_button.dart';
+import 'package:stepout/presentation/core/constants.dart';
+import 'package:stepout/presentation/core/combonents/constant_button.dart';
 import 'package:stepout/presentation/functions/auth_fns.dart';
 
 class SignUpScreen extends StatelessWidget {

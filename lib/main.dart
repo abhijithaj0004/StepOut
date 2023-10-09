@@ -5,8 +5,7 @@ import 'package:stepout/businesslogic/productdetails/productdetail_cubit.dart';
 import 'package:stepout/businesslogic/search/search_product_cubit.dart';
 import 'package:stepout/businesslogic/wishlist/wish_list_cubit.dart';
 import 'package:stepout/firebase_options.dart';
-import 'package:stepout/presentation/pages/productdetails/product_details.dart';
-import 'package:stepout/presentation/pages/splashscreen/splash_screen.dart';
+import 'package:stepout/presentation/screens/splashscreen/splash_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 main(List<String> args) async {

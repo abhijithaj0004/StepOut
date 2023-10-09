@@ -3,9 +3,21 @@ part of 'wish_list_cubit.dart';
 class WishListState {
   bool isFav;
   List wishList;
-  WishListState(this.isFav,this.wishList);
+  List productList;
+  List displayList;
+  WishListModel? wishListModel;
+  WishListState(
+      {required this.isFav,
+      required this.wishList,
+      required this.displayList,
+      required this.productList});
 }
 
-final class WishListInitial extends WishListState {
-  WishListInitial(super.isFav, super.wishList);
+class WishListInitial extends WishListState {
+  WishListInitial({
+    required super.isFav,
+    required super.wishList,
+    required super.displayList,
+    required super.productList,
+  });
 }

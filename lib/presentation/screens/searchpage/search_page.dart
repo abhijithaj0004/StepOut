@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/businesslogic/search/search_product_cubit.dart';
-import 'package:stepout/presentation/pages/productdetails/product_details.dart';
-import 'package:stepout/presentation/pages/searchpage/widgets/before_search.dart';
+import 'package:stepout/presentation/screens/productdetails/product_details.dart';
+import 'package:stepout/presentation/screens/searchpage/widgets/before_search.dart';
 
 // ignore: must_be_immutable
 class SearchPage extends StatelessWidget {
@@ -97,6 +97,7 @@ class SearchPage extends StatelessWidget {
                                                   ['description'],
                                               amount: items[index]['amount'],
                                               productSize: items[index]['size'],
+                                              productid: document[index].id,
                                             ),
                                           ));
                                         },

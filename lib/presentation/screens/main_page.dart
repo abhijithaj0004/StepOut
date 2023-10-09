@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:stepout/presentation/pages/accountpage/account_page.dart';
-import 'package:stepout/presentation/pages/favoritepage/fav_page.dart';
-import 'package:stepout/presentation/pages/homescreen/home_screen.dart';
-import 'package:stepout/presentation/pages/orderspage/order_page.dart';
+import 'package:stepout/presentation/screens/accountpage/account_page.dart';
+import 'package:stepout/presentation/screens/favoritepage/fav_page.dart';
+import 'package:stepout/presentation/screens/homescreen/home_screen.dart';
+import 'package:stepout/presentation/screens/orderspage/order_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

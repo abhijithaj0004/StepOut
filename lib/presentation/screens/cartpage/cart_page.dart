@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stepout/presentation/constants/constants.dart';
-import 'package:stepout/presentation/constants/combonents/constant_button.dart';
-import 'package:stepout/presentation/constants/combonents/constant_main_container.dart';
-import 'package:stepout/presentation/pages/favoritepage/fav_page.dart';
+import 'package:stepout/presentation/core/constants.dart';
+import 'package:stepout/presentation/core/combonents/constant_button.dart';
+import 'package:stepout/presentation/core/combonents/constant_main_container.dart';
+import 'package:stepout/presentation/screens/addaddress/add_address.dart';
+import 'package:stepout/presentation/screens/favoritepage/fav_page.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -183,13 +184,19 @@ class CartPage extends StatelessWidget {
               ],
             ),
             KButton(
+                onClick: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AddAdressPage(),
+                  ));
+                },
                 label: Center(
-              child: Text(
-                'Checkout',
-                style: GoogleFonts.itim(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 25)),
-              ),
-            ))
+                  child: Text(
+                    'Checkout',
+                    style: GoogleFonts.itim(
+                        textStyle:
+                            TextStyle(color: Colors.white, fontSize: 25)),
+                  ),
+                ))
           ])),
     );
   }
