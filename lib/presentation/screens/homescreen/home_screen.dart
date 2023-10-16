@@ -10,6 +10,7 @@ import 'package:stepout/presentation/screens/productdetails/product_details.dart
 import 'package:stepout/presentation/screens/searchpage/search_page.dart';
 import 'package:stepout/presentation/screens/settings/settings.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             onPressed: () async {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const CartPage(),
+                builder: (context) => CartPage(),
               ));
             },
             icon: const FaIcon(
@@ -75,7 +76,7 @@ class HomeScreen extends StatelessWidget {
         stream: productName,
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
@@ -123,150 +124,158 @@ class HomeScreen extends StatelessWidget {
 
             return Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Container(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      // Loop through unique categories and create sections
-                      for (String category in uniqueCategories)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              category,
-                              style: GoogleFonts.itim(
-                                textStyle: const TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.black,
-                                ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // Loop through unique categories and create sections
+                    for (String category in uniqueCategories)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            category,
+                            style: GoogleFonts.itim(
+                              textStyle: const TextStyle(
+                                fontSize: 25,
+                                color: Colors.black,
                               ),
                             ),
-                            kheight20,
-                            // Create a list of products for this category
-                            SizedBox(
-                              height: size * 0.7,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: items.length,
-                                itemBuilder: (context, index) {
-                                  if (items[index]['categoryList'] ==
-                                      category) {
-                                    final String productName =
-                                        items[index]['name'];
-                                    final String description =
-                                        items[index]['description'];
-                                    final double amount =
-                                        items[index]['amount'];
-                                    final String imageUrl =
-                                        items[index]['image'];
-                                    final List<String> productSize =
-                                        items[index]['size'];
+                          ),
+                          kheight20,
+                          // Create a list of products for this category
+                          SizedBox(
+                            height: size * 0.7,
+                            child: ListView.builder(
+                              // physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: items.length,
+                              itemBuilder: (context, index) {
+                                if (items[index]['categoryList'] == category) {
+                                  final String productName =
+                                      items[index]['name'];
+                                  final String description =
+                                      items[index]['description'];
+                                  final double amount = items[index]['amount'];
+                                  final String imageUrl = items[index]['image'];
+                                  final List<String> productSize =
+                                      items[index]['size'];
 
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 20.0),
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ProductDetails(
-                                                      productName: productName,
-                                                      amount: amount,
-                                                      description: description,
-                                                      imgURL: imageUrl,
-                                                      productSize: productSize,
-                                                      productid:
-                                                          document[index].id,
-                                                    ),
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 20.0),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ProductDetails(
+                                                    categoryList: category,
+                                                    productName: productName,
+                                                    amount: amount,
+                                                    description: description,
+                                                    imgURL: imageUrl,
+                                                    productSize: productSize,
+                                                    productid:
+                                                        document[index].id,
                                                   ),
-                                                );
-                                              },
-                                              child: MainContainer(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                height: size * 0.5,
-                                                width: size * 0.4,
-                                                child: Image.network(
-                                                  imageUrl,
-                                                  loadingBuilder: (context,
-                                                      child, loadingProgress) {
-                                                    if (loadingProgress ==
-                                                        null) {
-                                                      return child;
-                                                    }
-                                                    return Center(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        value: loadingProgress
-                                                                    .expectedTotalBytes !=
-                                                                null
-                                                            ? loadingProgress
-                                                                    .cumulativeBytesLoaded /
-                                                                loadingProgress
-                                                                    .expectedTotalBytes!
-                                                            : null,
-                                                      ),
-                                                    );
-                                                  },
                                                 ),
+                                              );
+                                            },
+                                            child: MainContainer(
+                                              padding: const EdgeInsets.all(5),
+                                              height: size * 0.5,
+                                              width: size * 0.4,
+                                              child: Image.network(
+                                                imageUrl,
+                                                loadingBuilder: (context, child,
+                                                    loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      value: loadingProgress
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProgress
+                                                                  .cumulativeBytesLoaded /
+                                                              loadingProgress
+                                                                  .expectedTotalBytes!
+                                                          : null,
+                                                    ),
+                                                  );
+                                                },
                                               ),
                                             ),
-                                            kheight10,
-                                            SizedBox(
-                                              width: size * 0.4,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
+                                          ),
+                                          kheight10,
+                                          SizedBox(
+                                            width: size * 0.4,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: size * 0.4,
+                                                  child: Text(
                                                     productName,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: GoogleFonts.itim(
-                                                      textStyle: TextStyle(
-                                                          fontSize: 18),
+                                                      textStyle:
+                                                          const TextStyle(
+                                                              fontSize: 18),
                                                     ),
                                                   ),
-                                                  Text('MRP:',
-                                                      style: GoogleFonts.itim(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 16,
-                                                            color: const Color
-                                                                .fromARGB(255,
-                                                                99, 99, 99)),
-                                                      )),
-                                                  Text(amount.toString(),
-                                                      style: GoogleFonts.itim(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 16,
-                                                            color: const Color
-                                                                .fromARGB(255,
-                                                                99, 99, 99)),
-                                                      )),
-                                                ],
-                                              ),
+                                                ),
+                                                Text('MRP:',
+                                                    style: GoogleFonts.itim(
+                                                      textStyle:
+                                                          const TextStyle(
+                                                              fontSize: 16,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      99,
+                                                                      99,
+                                                                      99)),
+                                                    )),
+                                                Text(amount.toString(),
+                                                    style: GoogleFonts.itim(
+                                                      textStyle:
+                                                          const TextStyle(
+                                                              fontSize: 16,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      99,
+                                                                      99,
+                                                                      99)),
+                                                    )),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    );
-                                  } else {
-                                    // Return an empty container if the product doesn't belong to this category
-                                    return Container();
-                                  }
-                                },
-                              ),
+                                    ),
+                                  );
+                                } else {
+                                  // Return an empty container if the product doesn't belong to this category
+                                  return Container();
+                                }
+                              },
                             ),
-                          ],
-                        ),
-                    ],
-                  ),
+                          ),
+                        ],
+                      ),
+                  ],
                 ),
               ),
             );

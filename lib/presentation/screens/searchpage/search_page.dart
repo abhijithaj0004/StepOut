@@ -22,7 +22,7 @@ class SearchPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          'Search',
+          'Search',  
           style: GoogleFonts.itim(),
         ),
       ),
@@ -43,6 +43,11 @@ class SearchPage extends StatelessWidget {
                     return const Center(
                       child: Text('Something Went wrong'),
                     );
+                    // } else if (snapshot.connectionState ==
+                    //     ConnectionState.waiting) {
+                    //   return Center(
+                    //     child: CircularProgressIndicator(),
+                    //   );
                   } else {
                     QuerySnapshot querySnapshot = snapshot.data;
                     List<QueryDocumentSnapshot> document = querySnapshot.docs;
@@ -91,6 +96,8 @@ class SearchPage extends StatelessWidget {
                                               .push(MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductDetails(
+                                              categoryList: items[index]
+                                                  ['categoryList'],
                                               productName: items[index]['name'],
                                               imgURL: items[index]['image'],
                                               description: items[index]

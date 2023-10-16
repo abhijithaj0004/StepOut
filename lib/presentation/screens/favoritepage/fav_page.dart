@@ -24,12 +24,6 @@ class FavPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<WishListCubit>().getWishList();
-    final wishlist = context.read<WishListCubit>().state.wishList;
-    debugPrint('From screen ${wishlist.length}');
-    // context.read<WishListCubit>().getWishList();
-    // context.read<WishListCubit>().getProductData();
-    // // context.read<WishListCubit>();
-    // final height = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

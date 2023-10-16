@@ -5,7 +5,7 @@ class WishListState {
   List wishList;
   List productList;
   List displayList;
-  WishListModel? wishListModel;
+  // WishListModel? wishListModel;
   WishListState(
       {required this.isFav,
       required this.wishList,

@@ -31,17 +31,21 @@ class WishtileList extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text('Something wrong'),
             );
           } else if (snapshot.data!.docs.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('Wishlist is Empty'),
+            );
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
 
           return MasonryGridView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.all(20),
             mainAxisSpacing: 10,
             crossAxisSpacing: 15,
@@ -51,6 +55,7 @@ class WishtileList extends StatelessWidget {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               return ItemCard(
+                categoryList: snapshot.data!.docs[index]['categoryList'],
                 imagepath: snapshot.data!.docs[index]['image'],
                 name: snapshot.data!.docs[index]['name'],
                 amount: snapshot.data!.docs[index]['amount'],
@@ -67,20 +72,23 @@ class WishtileList extends StatelessWidget {
 }
 
 class ItemCard extends StatelessWidget {
-  const ItemCard(
-      {super.key,
-      required this.productId,
-      required this.name,
-      required this.imagepath,
-      required this.amount,
-      required this.size,
-      required this.description});
+  const ItemCard({
+    super.key,
+    required this.productId,
+    required this.name,
+    required this.imagepath,
+    required this.amount,
+    required this.size,
+    required this.description,
+    required this.categoryList
+  });
   final String productId;
   final String name;
   final String imagepath;
   final List<String> size;
   final double amount;
   final String description;
+  final String categoryList;
   @override
   Widget build(BuildContext context) {
     final toggleFav = context.read<WishListCubit>().state.wishList;
@@ -92,6 +100,7 @@ class ItemCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ProductDetails(
+                  categoryList: categoryList,
                   productName: name,
                   imgURL: imagepath,
                   description: description,
@@ -108,7 +117,7 @@ class ItemCard extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     context.read<WishListCubit>().remove(productId, context);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Product removed from favorite')));
                   },
                   child: Align(

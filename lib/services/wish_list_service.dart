@@ -11,6 +11,7 @@ class WishListService {
       String description,
       double amount,
       String image,
+      String categoryList,
       List<String> size,
       BuildContext context) async {
     try {
@@ -26,7 +27,7 @@ class WishListService {
         'amount': amount,
         'size': size,
         'description': description,
-        // 'categoryList': e['categoryList']
+        'categoryList': categoryList,
       }).then(
         (value) {
           ScaffoldMessenger.of(context).clearSnackBars();
@@ -59,17 +60,5 @@ class WishListService {
     }
   }
 
-  //  addProductsToCart(String id, BuildContext context) async {
-  //   try {
-  //     Map<String, dynamic> datatoAdd = {
-  //       'product_id': id,
-  //     };
-  //     await cartListStore.add(datatoAdd).then((value) => {
-  //           ScaffoldMessenger.of(context).showSnackBar(
-  //               SnackBar(content: Text('Product Successfully added to cart'))),
-  //         });
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  // }
+  
 }

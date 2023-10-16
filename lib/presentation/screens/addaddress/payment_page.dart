@@ -5,8 +5,8 @@ import 'package:stepout/presentation/core/constants.dart';
 import 'package:stepout/presentation/screens/addaddress/add_address.dart';
 
 class PaymentPage extends StatelessWidget {
-  const PaymentPage({super.key});
-
+  const PaymentPage({super.key, required this.totalAmount});
+final double totalAmount;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class PaymentPage extends StatelessWidget {
         child: SingleChildScrollView(
             child: Column(
           children: [
-            SummaryTopWidget(),
+            SummaryTopWidget(totalAmount: totalAmount,),
             kheight20,
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -34,7 +34,7 @@ class PaymentPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: ListTile(
-                leading:const Icon(Icons.payment),
+                leading: const Icon(Icons.payment),
                 title: Text(
                   'Click to Pay',
                   style: GoogleFonts.itim(
@@ -48,7 +48,7 @@ class PaymentPage extends StatelessWidget {
                 ),
               ),
             ),
-           const SizedBox(
+            const SizedBox(
               height: 100,
             ),
             KButton(

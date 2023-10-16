@@ -4,29 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/businesslogic/productdetails/productdetail_cubit.dart';
+import 'package:stepout/businesslogic/quantitycubit/quantity_cubit.dart';
 import 'package:stepout/businesslogic/wishlist/wish_list_cubit.dart';
 import 'package:stepout/presentation/core/combonents/constant_button.dart';
 import 'package:stepout/presentation/core/combonents/constant_main_container.dart';
 import 'package:stepout/presentation/core/constants.dart';
 import 'package:stepout/presentation/screens/cartpage/cart_page.dart';
+import 'package:stepout/services/cart_list_service.dart';
 import 'package:stepout/services/wish_list_service.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails(
+  ProductDetails(
       {super.key,
       required this.productName,
       required this.imgURL,
       required this.description,
       required this.amount,
       required this.productSize,
-      required this.productid});
+      required this.productid,
+      required this.categoryList});
   final String productName;
   final String imgURL;
   final String description;
   final double amount;
   final List<String> productSize;
   final String productid;
-
+  final String categoryList;
+  // int quantity = 1;
   @override
   Widget build(BuildContext context) {
     // WishListModel wishListModel;
@@ -72,7 +76,7 @@ class ProductDetails extends StatelessWidget {
                   ),
                   kheight30,
                   Text(
-                    "Men's Shoes",
+                    categoryList,
                     style: GoogleFonts.itim(
                       textStyle: const TextStyle(fontSize: 18),
                     ),
@@ -120,6 +124,9 @@ class ProductDetails extends StatelessWidget {
                                 context
                                     .read<ProductdetailCubit>()
                                     .toggleColor(index);
+                                context
+                                    .read<ProductdetailCubit>()
+                                    .getSelectedSize(productSize[index]);
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(6),
@@ -146,6 +153,50 @@ class ProductDetails extends StatelessWidget {
                       },
                     ),
                   ),
+                  kheight20,
+                  Row(
+                    children: [
+                      Text(
+                        'Qty: ',
+                        style: GoogleFonts.itim(
+                          textStyle: TextStyle(
+                            fontSize: 17,
+                          ),
+                        ),
+                      ),
+                      BlocBuilder<QuantityCubit, QuantityState>(
+                        builder: (context, state) {
+                          return Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  if (state.quantity > 1)
+                                    context
+                                        .read<QuantityCubit>()
+                                        .decrementQnty();
+                                },
+                                child: CircleAvatar(
+                                  child: Text('-'),
+                                  radius: 15,
+                                ),
+                              ),
+                              Text(state.quantity.toString()),
+                              InkWell(
+                                onTap: () {
+                                  // quantity = state.quantity;
+                                  context.read<QuantityCubit>().incrementQnty();
+                                },
+                                child: CircleAvatar(
+                                  child: Text('+'),
+                                  radius: 15,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      )
+                    ],
+                  ),
                   kheight30,
                   BlocBuilder<WishListCubit, WishListState>(
                     builder: (context, state) {
@@ -164,6 +215,7 @@ class ProductDetails extends StatelessWidget {
                                 description,
                                 amount,
                                 imgURL,
+                                categoryList,
                                 productSize,
                                 context);
                           }
@@ -195,62 +247,83 @@ class ProductDetails extends StatelessWidget {
                     },
                   ),
                   kheight20,
-                  KButton(
-                    onClick: () {
-                      // DbFunctions().addProductsToCart(productid, context);
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(
-                            'Added to Bag',
-                            style: GoogleFonts.itim(
-                              textStyle: const TextStyle(fontSize: 23),
-                            ),
-                          ),
-                          content: Text(
-                            'Your product is added to Bag',
-                            style: GoogleFonts.itim(
-                              textStyle: const TextStyle(fontSize: 18),
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const CartPage(),
-                                ));
-                              },
-                              child: Text(
-                                'CHECKOUT',
-                                style: GoogleFonts.itim(
-                                  textStyle: const TextStyle(),
+                  BlocBuilder<ProductdetailCubit, ProductdetailState>(
+                    builder: (context, state) {
+                      return KButton(
+                        onClick: () {
+                          final int quantity =
+                              context.read<QuantityCubit>().state.quantity;
+                          if (state.selectedSize.isNotEmpty) {
+                            CartListService().addProductstoCart(
+                                productid,
+                                productName,
+                                description,
+                                amount,
+                                imgURL,
+                                categoryList,
+                                state.selectedSize,
+                                productSize,
+                                quantity,
+                                context);
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(
+                                  'Added to Bag',
+                                  style: GoogleFonts.itim(
+                                    textStyle: const TextStyle(fontSize: 23),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                'OK',
-                                style: GoogleFonts.itim(
-                                  textStyle: const TextStyle(),
+                                content: Text(
+                                  'Your product is added to Bag',
+                                  style: GoogleFonts.itim(
+                                    textStyle: const TextStyle(fontSize: 18),
+                                  ),
                                 ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => CartPage(),
+                                      ));
+                                    },
+                                    child: Text(
+                                      'CHECKOUT',
+                                      style: GoogleFonts.itim(
+                                        textStyle: const TextStyle(),
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      'OK',
+                                      style: GoogleFonts.itim(
+                                        textStyle: const TextStyle(),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
-                            )
-                          ],
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text('Please select a Size')));
+                          }
+                        },
+                        label: Center(
+                          child: Text(
+                            'Add to Bag',
+                            style: GoogleFonts.itim(
+                                textStyle: const TextStyle(fontSize: 20),
+                                color: Colors.white),
+                          ),
                         ),
                       );
                     },
-                    label: Center(
-                      child: Text(
-                        'Add to Bag',
-                        style: GoogleFonts.itim(
-                            textStyle: const TextStyle(fontSize: 20),
-                            color: Colors.white),
-                      ),
-                    ),
                   ),
                   kheight20,
                   Text(
