@@ -247,7 +247,7 @@ class HomeScreen extends StatelessWidget {
                                                                       99,
                                                                       99)),
                                                     )),
-                                                Text(amount.toString(),
+                                                Text('₹ ${amount.toString()}',
                                                     style: GoogleFonts.itim(
                                                       textStyle:
                                                           const TextStyle(

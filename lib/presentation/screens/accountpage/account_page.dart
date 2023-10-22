@@ -2,11 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/presentation/core/constants.dart';
+import 'package:stepout/presentation/screens/accountpage/edit_user.dart';
 import 'package:stepout/presentation/screens/settings/settings.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({super.key});
-
+  AccountPage({super.key});
+  final String? displayName = FirebaseAuth.instance.currentUser?.displayName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +33,7 @@ class AccountPage extends StatelessWidget {
                 child: Container(
                     width: 150,
                     height: 150,
-                    decoration: BoxDecoration(shape: BoxShape.circle),
+                    decoration:const BoxDecoration(shape: BoxShape.circle),
                     child: Image.network(
                       FirebaseAuth.instance.currentUser?.photoURL ??
                           'https://i.stack.imgur.com/l60Hf.png',
@@ -41,7 +42,7 @@ class AccountPage extends StatelessWidget {
               ),
               kheight20,
               Text(
-                FirebaseAuth.instance.currentUser?.displayName ?? 'User1',
+                displayName ?? 'User1',
                 style: GoogleFonts.itim(
                     textStyle:
                         const TextStyle(fontSize: 20, color: Colors.black)),
@@ -54,22 +55,30 @@ class AccountPage extends StatelessWidget {
                         const TextStyle(fontSize: 20, color: Colors.black)),
               ),
               kheight30,
-              Container(
-                padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 181, 181, 181)),
-                    borderRadius: BorderRadius.circular(7)),
-                child: Text(
-                  'EDIT PROFILE',
-                  style: GoogleFonts.itim(
-                      textStyle:
-                          const TextStyle(fontSize: 20, color: Colors.black)),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => EditUserPage(displayName: displayName,),
+                  );
+                },
+                child: Container(
+                  padding:
+                   const   EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 181, 181, 181)),
+                      borderRadius: BorderRadius.circular(7)),
+                  child: Text(
+                    'EDIT PROFILE',
+                    style: GoogleFonts.itim(
+                        textStyle:
+                            const TextStyle(fontSize: 20, color: Colors.black)),
+                  ),
                 ),
               ),
               kheight30,
-              Divider(
+            const  Divider(
                 thickness: 1,
               ),
               ListTile(
@@ -78,7 +87,7 @@ class AccountPage extends StatelessWidget {
                     builder: (context) => SettingsPage(),
                   ));
                 },
-                leading: Icon(Icons.settings),
+                leading:const Icon(Icons.settings),
                 title: Text(
                   'Settings',
                   style: GoogleFonts.itim(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stepout/presentation/core/combonents/constant_button.dart';
@@ -6,7 +7,14 @@ import 'package:stepout/presentation/screens/addaddress/order_summary.dart';
 import 'package:stepout/services/address_service.dart';
 
 class AddAdressPage extends StatelessWidget {
-  AddAdressPage({super.key, required this.totalAmount});
+  AddAdressPage({
+    super.key,
+    required this.totalAmount,
+    required this.productID,
+    required this.productList,
+    required this.items,
+  });
+  final int items;
   final firstnameController = TextEditingController();
   final lastnameController = TextEditingController();
   final adressController = TextEditingController();
@@ -19,6 +27,9 @@ class AddAdressPage extends StatelessWidget {
   final phoneNumberController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final double totalAmount;
+  final String productID;
+  final List<Map<String, dynamic>> productList;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +49,10 @@ class AddAdressPage extends StatelessWidget {
             key: formKey,
             child: Column(
               children: [
-                SummaryTopWidget(totalAmount: totalAmount),
+                SummaryTopWidget(
+                  totalAmount: totalAmount,
+                  items: items,
+                ),
                 kheight20,
                 Text(
                   'Enter your name and address:',
@@ -288,7 +302,12 @@ class AddAdressPage extends StatelessWidget {
                             phoneNumberController.text.trim(),
                             context);
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>  OrderSummary(totalAmount: totalAmount),
+                          builder: (context) => OrderSummary(
+                            items: items,
+                            productList: productList,
+                            totalAmount: totalAmount,
+                            productID: productID,
+                          ),
                         ));
                       }
                     },
@@ -314,8 +333,10 @@ class SummaryTopWidget extends StatelessWidget {
   const SummaryTopWidget({
     super.key,
     required this.totalAmount,
+    required this.items,
   });
   final double totalAmount;
+  final int items;
 
   @override
   Widget build(BuildContext context) {
@@ -335,7 +356,7 @@ class SummaryTopWidget extends StatelessWidget {
                         fontSize: 20, color: Color.fromARGB(255, 36, 35, 35))),
               ),
               Text(
-                '₹ $totalAmount (2 items)',
+                '₹ $totalAmount ($items items)',
                 style: GoogleFonts.itim(
                     textStyle: const TextStyle(
                         fontSize: 20, color: Color.fromARGB(255, 36, 35, 35))),

@@ -15,9 +15,10 @@ import 'package:stepout/presentation/screens/addaddress/add_address.dart';
 import 'package:stepout/presentation/screens/addaddress/order_summary.dart';
 import 'package:stepout/presentation/screens/productdetails/product_details.dart';
 import 'package:stepout/services/cart_list_service.dart';
+import 'package:stepout/services/order_services.dart';
 
 class CartPage extends StatelessWidget {
-  CartPage({super.key});
+  const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +197,7 @@ class CartPage extends StatelessWidget {
                                               CrossAxisAlignment.end,
                                           children: [
                                             Text(
-                                                'MRP : ${snapshot.data!.docs[index]['amount']}',
+                                                'MRP : ₹ ${snapshot.data!.docs[index]['amount']}',
                                                 style: GoogleFonts.itim(
                                                     textStyle: TextStyle(
                                                   fontSize: 17,
@@ -322,6 +323,16 @@ class CartPage extends StatelessWidget {
                                         builder: (context, state) {
                                           return KButton(
                                               onClick: () async {
+                                                final productsList =
+                                                    getProductsList(
+                                                        snapshot.data
+                                                            as QuerySnapshot<
+                                                                Map<String,
+                                                                    dynamic>>);
+                                                log(productsList
+                                                    .toList()
+                                                    .runtimeType
+                                                    .toString());
                                                 context
                                                     .read<AddressCubit>()
                                                     .checkIfDocumentsExist();
@@ -332,13 +343,34 @@ class CartPage extends StatelessWidget {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
                                                     builder: (context) =>
-                                                        OrderSummary(totalAmount: estimatedAmount,),
+                                                        OrderSummary(
+                                                      items: snapshot
+                                                          .data!.docs.length,
+                                                      productList: productsList,
+                                                      totalAmount:
+                                                          estimatedAmount,
+                                                      productID: snapshot
+                                                          .data!.docs[index].id,
+                                                    ),
                                                   ));
                                                 } else {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
                                                     builder: (context) =>
-                                                        AddAdressPage(totalAmount: estimatedAmount),
+                                                        AddAdressPage(
+                                                            items:
+                                                                snapshot
+                                                                    .data!
+                                                                    .docs
+                                                                    .length,
+                                                            productList:
+                                                                productsList,
+                                                            productID: snapshot
+                                                                .data!
+                                                                .docs[index]
+                                                                .id,
+                                                            totalAmount:
+                                                                estimatedAmount),
                                                   ));
                                                 }
                                               },
@@ -365,5 +397,16 @@ class CartPage extends StatelessWidget {
                 }
               })),
     );
+  }
+
+  List<Map<String, dynamic>> getProductsList(
+      QuerySnapshot<Map<String, dynamic>> snapshot) {
+    List<Map<String, dynamic>> productsList = [];
+
+    for (QueryDocumentSnapshot<Map<String, dynamic>> doc in snapshot.docs) {
+      productsList.add(doc.data());
+    }
+
+    return productsList;
   }
 }

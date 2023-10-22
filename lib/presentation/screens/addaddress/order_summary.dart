@@ -7,10 +7,21 @@ import 'package:stepout/presentation/core/constants.dart';
 import 'package:stepout/presentation/screens/addaddress/add_address.dart';
 import 'package:stepout/presentation/screens/addaddress/payment_page.dart';
 import 'package:stepout/services/address_service.dart';
+import 'package:stepout/services/order_services.dart';
 
 class OrderSummary extends StatelessWidget {
-  const OrderSummary({super.key, required this.totalAmount});
+  const OrderSummary({
+    super.key,
+    required this.totalAmount,
+    required this.productID,
+    required this.productList,
+    required this.items,
+  });
+  final bool isSuccess = false;
+  final int items;
   final double totalAmount;
+  final String productID;
+  final List<Map<String, dynamic>> productList;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +57,7 @@ class OrderSummary extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SummaryTopWidget(
+                      items: items,
                       totalAmount: totalAmount,
                     ),
                     kheight30,
@@ -103,9 +115,42 @@ class OrderSummary extends StatelessWidget {
                     ),
                     KButton(
                         onClick: () {
+                          for (var element in snapshot.data!.docs) {
+                            OrderServices().addProductstoCheckout(
+                                productID,
+                                element['first_name'],
+                                element['last_name'],
+                                element['address1'],
+                                element['address2'],
+                                element['postalCode'],
+                                element['state_territory'],
+                                element['email'],
+                                element['phoneNumber'],
+                                totalAmount,
+                                isSuccess,
+                                productList,
+                                context);
+                          }
+                          // for (var element in snapshot.data!.docs) {
+                          //   PaymentServices().addProductstoCheckout(
+                          //       element.id,
+                          //       element['first_name'],
+                          //       element['last_name'],
+                          //       element['address1'],
+                          //       element['address2'],
+                          //       element['postalCode'],
+                          //       element['state_territory'],
+                          //       element['email'],
+                          //       element['phoneNumber'],
+                          //       totalAmount,
+                          //       context);
+                          // }
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                PaymentPage(totalAmount: totalAmount),
+                            builder: (context) => PaymentPage(
+                              items: items,
+                              totalAmount: totalAmount,
+                              productId: productID,
+                            ),
                           ));
                         },
                         label: Center(
@@ -153,7 +198,11 @@ class OrderSummary extends StatelessWidget {
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
                                       builder: (context) => AddAdressPage(
-                                          totalAmount: totalAmount),
+                                        items: items,
+                                        productList: productList,
+                                        totalAmount: totalAmount,
+                                        productID: productID,
+                                      ),
                                     ));
                                   },
                                   child: Text('Add New Address')),
